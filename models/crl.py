@@ -109,7 +109,7 @@ class CRL(pl.LightningModule):
         y_bar = y_bar / torch.exp(self.t)
         c_bar = torch.sigmoid(c_bar)
 
-        concept_loss = self.loss_concept(c_bar, c)
+        concept_loss = self.loss_concept(c_bar, c.float())
         l2_loss = self.l2_weight * self.l2_penalty()
         rrl_loss = self.loss(y_bar, y)
 
