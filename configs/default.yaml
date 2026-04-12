@@ -2,7 +2,7 @@
 project_name: concept_rule_learner
 exp_name: exp
 seed: 3
-device: 0
+device: 1
 
 # logger configs
 log:
