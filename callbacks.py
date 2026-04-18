@@ -72,8 +72,8 @@ class ExtractRule(Callback):
 
         # for Union Layer
         for i in range(1, len(pl_module.layer_list) - 1):
+            layer = pl_module.layer_list[i]
             if isinstance(layer, UnionLayer):
-                layer = pl_module.layer_list[i]
                 layer.get_rules(layer.conn.prev_layer, layer.conn.skip_from_layer)
                 skip_rule_name = (
                     None
