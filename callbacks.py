@@ -2,7 +2,7 @@ import torch
 from pathlib import Path
 from metrics import compute_metric
 from pytorch_lightning.callbacks import Callback, LearningRateMonitor, ModelCheckpoint
-
+from models.components import UnionLayer
 
 class ClipWeights(Callback):
     def on_train_batch_end(self, trainer, pl_module, outputs, batch, batch_idx):
@@ -73,7 +73,8 @@ class ExtractRule(Callback):
         # for Union Layer
         for i in range(1, len(pl_module.layer_list) - 1):
             layer = pl_module.layer_list[i]
-            layer.get_rules(layer.conn.prev_layer, layer.conn.skip_from_layer)
+            if isinstance(layer, UnionLayer):
+                layer.get_rules(layer.conn.prev_layer, layer.conn.skip_from_layer)
             skip_rule_name = (
                 None
                 if layer.conn.skip_from_layer is None
